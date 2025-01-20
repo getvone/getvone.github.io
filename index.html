@@ -7,8 +7,10 @@
     <title>Vone - PC Optimizer</title>
     
     <link rel="icon" href="icon.ico" type="image/x-icon">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/planet-kosmos" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/cloister-black" rel="stylesheet">
+                
     <style>
         * {
             margin: 0;
@@ -22,30 +24,10 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
         }
-
-        .startup-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            opacity: 1;
-            transition: opacity 1s ease;
-            z-index: 9999;
-        }
-
-        .startup-screen img {
-            max-width: 60%;
-        }
-
+        
         .container {
             width: 90%;
             margin: 0 auto;
-            display: none;
         }
 
         header {
@@ -60,15 +42,17 @@
         }
 
         header h1 {
+	        font-family: 'Planet Kosmos', sans-serif;
             font-size: 4rem;
             font-weight: 600;
             color: #fff;
         }
 
         header h2 {
+	        font-family: 'Planet Kosmos', sans-serif;
             font-size: 1.5rem;
             color: #9e9e9e;
-            margin: 20px 0;
+            margin: 5px 0;
         }
 
         .download-btn, .discord-btn, .contact-btn {
@@ -83,7 +67,7 @@
             gap: 10px;
             margin-top: 20px;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 255, 0.6); /* Add shadow */
+            box-shadow: 0 4px 15px rgba(0, 0, 255, 0.6);
         }
 
         .download-btn img, .discord-btn img, .contact-btn img {
@@ -91,11 +75,10 @@
             height: 24px;
         }
 
-        /* Hover effects for tilt, highlight, and shadow intensification */
         .download-btn:hover, .discord-btn:hover, .contact-btn:hover {
-            transform: perspective(500px) rotateX(5deg) rotateY(5deg); /* Tilt */
-            box-shadow: 0 6px 20px rgba(0, 0, 255, 0.8), 0 0 15px rgba(135, 206, 250, 0.8); /* Enhance shadow */
-            background: linear-gradient(135deg, #0000ff, #87CEFA, #add8e6); /* Highlight */
+            transform: perspective(500px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 255, 0.8), 0 0 15px rgba(135, 206, 250, 0.8);
+            background: linear-gradient(135deg, #0000ff, #87CEFA, #add8e6);
         }
 
         .version-text {
@@ -116,92 +99,151 @@
             transform: scale(1.05) rotate(3deg);
         }
 
-        .features {
-            display: flex;
-            justify-content: space-around;
-            padding: 60px 0;
+        footer {
+            font-family: 'Cloister Black', sans-serif;
+            margin-top: 50px;
             text-align: center;
+            color: #9e9e9e;
+            font-size: 1.3rem;
         }
 
-        .feature {
-            width: 300px;
-            background-color: #2a2a2d;
-            border-radius: 10px;
-            padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid transparent;
-            background-clip: padding-box, border-box;
-            background-origin: border-box;
-            box-shadow: 0 0 0 3px linear-gradient(135deg, #000080, #0000ff, #87CEFA);
+        footer .made-by {
+            color: #87CEFA;
+            text-decoration: none;
+            position: relative;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        .feature:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 0 15px rgba(0, 0, 128, 0.4), 0 0 15px rgba(0, 0, 255, 0.4), 0 0 15px rgba(135, 206, 250, 0.4);
+        footer .made-by::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #87CEFA, #00FFFF);
+            transition: width 0.3s ease;
         }
+
+        footer .made-by:hover {
+            color: #00FFFF;
+            transform: scale(1.1);
+        }
+
+        footer .made-by:hover::after {
+            width: 100%;
+        }
+
+	.features {
+   	 display: flex;
+  	  justify-content: space-around;
+  	  gap: 20px;
+   	 padding: 60px 0;
+   	 text-align: center;
+  	  flex-wrap: wrap;
+	}	
+
+	.feature {
+	    width: 300px;
+ 	   background-color: #2a2a2d;
+ 	   border-radius: 15px;
+  	  padding: 30px;
+ 	   border: 2px solid transparent;
+  	  background-clip: padding-box, border-box;
+  	  position: relative;
+  	  background-origin: border-box;
+  	  overflow: hidden;
+  	  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.feature::before {
+ 	   content: '';
+  	  position: absolute;
+  	  top: -50%;
+  	  left: -50%;
+  	  width: 200%;
+  	  height: 200%;
+  	  background: linear-gradient(135deg, #000080, #0000ff, #87CEFA);
+  	  z-index: 1;
+ 	   transition: transform 0.5s ease;
+ 	   transform: scale(0);
+	    border-radius: 50%;
+	    opacity: 0.5;
+	}
+
+	.feature:hover::before {
+ 	   transform: scale(1);
+	}
+
+	.feature:hover {
+ 	   transform: translateY(-10px) rotate(1deg);
+	    box-shadow: 0 0 15px rgba(0, 0, 128, 0.4), 0 0 15px rgba(0, 0, 255, 0.4), 0 0 15px rgba(135, 206, 250, 0.4);
+	}
+
+	.feature h3 {
+  	  color: #fff;
+  	  font-size: 1.5rem;
+  	  margin-bottom: 15px;
+  	  position: relative;
+  	  z-index: 2;
+	}
+
+	.feature p {
+  	  color: #9e9e9e;
+  	  font-size: 1rem;
+ 	   line-height: 1.5;
+ 	   position: relative;
+ 	   z-index: 2;
+	}
 
     </style>
 </head>
 <body>
 
-    <div class="startup-screen" id="startupScreen">
-        <img src="brand.png" alt="Brand Logo">
-    </div>
-
-    <div class="container" id="mainContent">
+    <div class="container">
         <header>
             <div class="header-text">
-                <h1>Vone</h1>
-                <h2>Unleash your PC's full performance</h2>
+                <h1>vone</h1>
+                <h2>unleash your pc's full performance</h2>
                 <a href="https://download1507.mediafire.com/5v73c7ejagug8B0-jCGKoMxqqomQUUS4dxg_BTBx_9WqeDNIPI9T1eHTToB6fIj7dLMkMwUWoheBbqnB2KrOq7S_FWguQ3ob-rRGEwaLgS4eFlpybyBS_bTrDf4KJ2XCWHiQZIjaQpX_fedmCEA9MBriR0dXGriE94iJFxOc-Znspug/ymdt5qej48l7n2k/Vone.4.1.Stable.rar" class="download-btn">
                     <img src="download.png" alt="Download Icon">
-                    Download Latest Version
+                    download latest version
                 </a>
                 <a href="https://dsc.gg/vonecommunity" class="discord-btn">
                     <img src="discord.png" alt="Discord Logo">
-                    Discord Server
+                    discord server
                 </a>
-                <!-- Contact Us Button -->
                 <a href="mailto:getvone.biz@gmail.com" class="contact-btn">
                     <img src="contact.png" alt="Contact Icon">
-                    Contact Us
+                    contact us
                 </a>
                 <div class="version-text">v4.1 stable &bull; Windows 11, 10, 8.1, 8, and 7</div>
             </div>
             <img src="mockup.png" alt="Vone Mockup" class="mockup">
         </header>
+	<section class="features">
+  	  <div class="feature">
+   	     <h3>Bloatware Remover</h3>
+    	    <p>Vone is designed to remove bloatware (Possibly unwanted software) and help your PC run smoother.</p>
+  	  </div>
+ 	   <div class="feature">
+  	      <h3>Advanced Cleaning</h3>
+  	      <p>Deep cleans your system from unnecessary files, logs, and removes temporary files to improve your PC speed.</p>
+ 	   </div>
+ 	   <div class="feature">
+    	    <h3>Fully Open-Source</h3>
+   	     <p>Vone is fully open-source, so you can review the code and see if anything suspicious is happening.</p>
+    	</div>
+	</section>
 
-        <section class="features">
-            <div class="feature">
-                <h3>Bloatware Remover</h3>
-                <p>Vone is designed to remove bloatware (Possibly unwanted software) and help your PC run smoother.</p>
-            </div>
-            <div class="feature">
-                <h3>Advanced Cleaning</h3>
-                <p>Deep cleans your system from unnecessary files, logs, and removes temporary files to improve your PC speed.</p>
-            </div>
-            <div class="feature">
-                <h3>Fully Open-Source</h3>
-                <p>Vone is fully open-source, so you can review the code and see if anything suspicious is happening.</p>
-            </div>
-        </section>
-
+        <footer>
+            Made by 
+            <a href="https://rxllie.github.io" class="made-by">
+                rxllie
+            </a>
+        </footer>
     </div>
-
-    <script>
-        window.onload = function() {
-            const startupScreen = document.getElementById('startupScreen');
-            const mainContent = document.getElementById('mainContent');
-
-            setTimeout(() => {
-                startupScreen.style.opacity = '0';
-                setTimeout(() => {
-                    startupScreen.style.display = 'none';
-                    mainContent.style.display = 'block';
-                }, 500);
-            }, 1200);
-        }
-    </script>
 
 </body>
 </html>
