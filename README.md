@@ -1,3 +1,2 @@
-## Made by Batty :) 
-
-# Current version: v4.1
+## made by rxllie
+### version: v4.3 stable
