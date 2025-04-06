@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vone - PC Optimizer</title>
+    
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/planet-kosmos" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/cloister-black" rel="stylesheet">
+                
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c1c1e;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header .header-text {
+            max-width: 50%;
+        }
+
+        header h1 {
+            font-family: 'Planet Kosmos', sans-serif;
+            font-size: 4rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        header h2 {
+            font-family: 'Planet Kosmos', sans-serif;
+            font-size: 1.5rem;
+            color: #9e9e9e;
+            margin: 5px 0;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #9e9e9e;
+            margin-top: 10px;
+        }
+
+        .version {
+            font-size: 1.25rem;
+            color: #9e9e9e;
+            margin-top: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #000080, #0000ff, #87CEFA);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 255, 0.6);
+        }
+
+        .download-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .download-btn:hover {
+            transform: perspective(500px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 255, 0.8), 0 0 15px rgba(135, 206, 250, 0.8);
+            background: linear-gradient(135deg, #0000ff, #87CEFA, #add8e6);
+        }
+
+        footer {
+            font-family: 'Cloister Black', sans-serif;
+            margin-top: 50px;
+            text-align: center;
+            color: #9e9e9e;
+            font-size: 1.3rem;
+        }
+
+        footer .made-by {
+            color: #87CEFA;
+            text-decoration: none;
+            position: relative;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        footer .made-by::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #87CEFA, #00FFFF);
+            transition: width 0.3s ease;
+        }
+
+        footer .made-by:hover {
+            color: #00FFFF;
+            transform: scale(1.1);
+        }
+
+        footer .made-by:hover::after {
+            width: 100%;
+        }
+
+        .download-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="header-text">
+                <h1>Vone</h1>
+                <h2>Unleash your PC's full performance</h2>
+                <div class="subtitle">Windows 7 and above</div>
+                <div class="version">v4.3.1</div>
+                <div class="download-section">
+                    <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1-EXE.exe" class="download-btn" target="_blank">
+                        <img src="download.png" alt="Download Icon"> Download Executable File
+                    </a>
+                    <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1.bat" class="download-btn" target="_blank">
+                        <img src="download.png" alt="Download Icon"> Download Batch Script (Recommended)
+                    </a>
+                </div>
+            </div>
+        </header>
+        
+        <footer>
+            Made by 
+            <a href="https://rxllie.github.io" class="made-by">
+                rxllie
+            </a>
+        </footer>
+    </div>
+
+</body>
+</html>
