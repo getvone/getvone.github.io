@@ -24,11 +24,11 @@
         .version {
             font-size: 1.2em;
         }
-        /* Disabled download button style */
+        
         .disabled {
-            pointer-events: none;  /* Disable clicking */
-            opacity: 0.5;  /* Make it look disabled */
-            background-color: #ccc;  /* Change the background to gray */
+            pointer-events: none;  
+            opacity: 0.5;  
+            background-color: #ccc; 
         }
     </style>
 </head>
@@ -38,11 +38,9 @@
         <header>
             <div class="version">v4.3.1</div>
             <div class="download-section">
-                <!-- EXE Download Link -->
                 <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1-EXE.exe" id="exe-download" class="download-btn" target="_blank">
                     <img src="download.png" alt="Download Icon"> Download Executable File
                 </a>
-                <!-- Batch Script Download Link -->
                 <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1.bat" class="download-btn" target="_blank">
                     <img src="download.png" alt="Download Icon"> Download Batch Script (Recommended)
                 </a>
@@ -58,14 +56,12 @@
     </div>
 
     <script>
-        // JavaScript to display the alert and disable EXE download
         window.onload = function() {
             alert("For an unknown reason, antivirus software flags our executable version as malware. Until we can fix this issue, downloads for our executable versions will not be available.");
-            
-            // Disable EXE download link
+
             var exeDownloadLink = document.getElementById("exe-download");
             exeDownloadLink.classList.add("disabled");
-            exeDownloadLink.removeAttribute("href");  // Remove the link to prevent downloading
+            exeDownloadLink.removeAttribute("href"); 
         };
     </script>
 
