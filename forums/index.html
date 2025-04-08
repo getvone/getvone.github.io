@@ -10,36 +10,34 @@
 </head>
 <body>
   <div class="container">
-    <h1>vone forums</h1>
-    <div id="forum-list"></div>
+    <h1 class="forum-title">vone forum</h1>
+    <div id="forum-list" class="forum-list"></div>
+    <div id="forum-content" class="forum-content"></div>
   </div>
 
   <script>
     const md = window.markdownit();
-    const forumList = document.getElementById("forum-list");
+    const listContainer = document.getElementById('forum-list');
+    const contentContainer = document.getElementById('forum-content');
 
-    async function loadMarkdownFiles() {
-      const files = await fetch("forums/index.json").then(res => res.json());
-      for (let file of files) {
-        try {
-          const res = await fetch(`forums/${file}`);
-          const text = await res.text();
-          const html = md.render(text);
-          const title = file.replace(".md", "");
-          const section = document.createElement("div");
-          section.className = "forum-post";
-          section.innerHTML = `
-            <h3>${title}</h3>
-            <div class="forum-content">${html}</div>
-          `;
-          forumList.appendChild(section);
-        } catch (e) {
-          console.error(`Error loading ${file}`, e);
-        }
-      }
-    }
-
-    loadMarkdownFiles();
+    fetch('index.json')
+      .then(res => res.json())
+      .then(files => {
+        files.forEach(file => {
+          const title = file.replace(/\.md$/, '');
+          const item = document.createElement('div');
+          item.className = 'forum-item';
+          item.textContent = title;
+          item.onclick = () => {
+            fetch(file)
+              .then(res => res.text())
+              .then(markdown => {
+                contentContainer.innerHTML = md.render(markdown);
+              });
+          };
+          listContainer.appendChild(item);
+        });
+      });
   </script>
 </body>
 </html>
