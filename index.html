@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vone - PC Optimizer</title>
-
   <link rel="icon" href="icon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/planet-kosmos" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/cloister-black" rel="stylesheet">
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background-color: #1c1c1e;
       color: #fff;
       font-family: 'Poppins', sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
     .container { width: 90%; margin: 0 auto; }
     header {
@@ -25,6 +23,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 60px 0;
+      position: relative;
     }
     header .header-text { max-width: 50%; }
     header h1 {
@@ -77,38 +76,31 @@
     .mockup:hover {
       transform: scale(1.05) rotate(3deg);
     }
-    footer {
-      font-family: 'Cloister Black', sans-serif;
-      margin-top: 50px;
-      text-align: center;
-      color: #9e9e9e;
-      font-size: 1.3rem;
-    }
-    footer .made-by {
-      color: #87CEFA;
-      text-decoration: none;
-      position: relative;
-      font-weight: 600;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    footer .made-by::after {
-      content: "";
+    .language-selector {
       position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #87CEFA, #00FFFF);
-      transition: width 0.3s ease;
+      top: 10px;
+      right: 10px;
     }
-    footer .made-by:hover {
-      color: #00FFFF;
-      transform: scale(1.1);
+    .language-selector img {
+      width: 32px;
+      cursor: pointer;
     }
-    footer .made-by:hover::after {
-      width: 100%;
+    .language-dropdown {
+      display: none;
+      position: absolute;
+      right: 0;
+      background: #2a2a2d;
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 10;
     }
-
+    .language-dropdown select {
+      padding: 10px;
+      border: none;
+      background: #2a2a2d;
+      color: white;
+      font-family: 'Poppins';
+    }
     .features {
       display: flex;
       justify-content: space-around;
@@ -123,9 +115,7 @@
       border-radius: 15px;
       padding: 30px;
       border: 2px solid transparent;
-      background-clip: padding-box, border-box;
       position: relative;
-      background-origin: border-box;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -138,7 +128,6 @@
       height: 200%;
       background: linear-gradient(135deg, #000080, #0000ff, #87CEFA);
       z-index: 1;
-      transition: transform 0.5s ease;
       transform: scale(0);
       border-radius: 50%;
       opacity: 0.5;
@@ -164,9 +153,53 @@
       position: relative;
       z-index: 2;
     }
+    footer {
+      font-family: 'Cloister Black', sans-serif;
+      margin-top: 50px;
+      text-align: center;
+      color: #9e9e9e;
+      font-size: 1.3rem;
+    }
+    footer .made-by {
+      color: #87CEFA;
+      text-decoration: none;
+      position: relative;
+      font-weight: 600;
+    }
+    footer .made-by::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #87CEFA, #00FFFF);
+      transition: width 0.3s ease;
+    }
+    footer .made-by:hover {
+      color: #00FFFF;
+      transform: scale(1.1);
+    }
+    footer .made-by:hover::after {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
+  <div class="language-selector">
+    <img src="language.png" alt="Language" onclick="toggleLanguageDropdown()">
+    <div class="language-dropdown" id="lang-dropdown">
+      <select onchange="translatePage(this.value)">
+        <option value="en">English (US)</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="it">Italian</option>
+        <option value="ja">Japanese</option>
+        <option value="zh-CN">Chinese (Simplified)</option>
+      </select>
+    </div>
+  </div>
   <div class="container">
     <header>
       <div class="header-text">
@@ -180,19 +213,22 @@
           <img src="discord.png" alt="Discord Logo">
           discord server
         </a>
-        <a href="forums.html" class="contact-btn">
+        <a href="announcements.html" class="contact-btn">
           <img src="forums.png" alt="Forum Icon">
-          forums
+          announcements
         </a>
         <a href="reconos.html" class="contact-btn">
           <img src="reconos.png" alt="ReconOS Icon">
           reconos
         </a>
+        <a href="https://github.com/getvone/getvone.github.io/discussions/categories/general" class="contact-btn">
+          <img src="community.png" alt="Community Icon">
+          community
+        </a>
         <div class="version-text">v4.3.1 stable &bull; Windows 11, 10, 8.1, 8, and 7</div>
       </div>
       <img src="mockup.png" alt="Vone Mockup" class="mockup">
     </header>
-
     <section class="features">
       <div class="feature">
         <h3>Bloatware Remover</h3>
@@ -207,11 +243,24 @@
         <p>Vone is fully open-source, so you can review the code and see if anything suspicious is happening.</p>
       </div>
     </section>
-
     <footer>
-      Made by 
-      <a href="https://rxllie.github.io" class="made-by">rxllie</a>
+      Made by <a href="https://rxllie.github.io" class="made-by">rxllie</a>
     </footer>
   </div>
+  <script>
+    function toggleLanguageDropdown() {
+      const dropdown = document.getElementById('lang-dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function translatePage(lang) {
+      const gtScript = document.createElement('script');
+      gtScript.src = `https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
+      document.body.appendChild(gtScript);
+      window.googleTranslateElementInit = () => {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: lang, layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+      };
+    }
+  </script>
 </body>
 </html>
