@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vone - PC Optimizer</title>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
     
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -159,8 +160,13 @@
                     <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1-EXE.exe" id="exe-download" class="download-btn" target="_blank">
                         <img src="download.png" alt="Download Icon"> Download Executable File
                     </a>
-                    <a href="https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1.bat" class="download-btn" target="_blank">
+                    <button class="download-btn" id="captcha-download">
                         <img src="download.png" alt="Download Icon"> Download Batch Script (Recommended)
+                    </button>
+                    <div style="display:none;">
+                        <div class="h-captcha" data-sitekey="your-hcaptcha-site-key" data-callback="onCaptchaSuccess"></div>
+                    </div>
+
                     </a>
                 </div>
             </div>
@@ -175,6 +181,14 @@
     </div>
 
     <script>
+        document.getElementById("captcha-download").addEventListener("click", function() {
+    document.querySelector(".h-captcha").style.display = "block";
+});
+
+function onCaptchaSuccess() {
+    window.location.href = "https://github.com/getvone/getvone.github.io/releases/download/v4.3.1/Vone-v.4.3.1.bat";
+}
+
         // JavaScript to display the alert and disable EXE download
         window.onload = function() {
             alert("For an unknown reason, antivirus software flags our executable version as malware. Until we can fix this issue, downloads for our executable versions will not be available.");
