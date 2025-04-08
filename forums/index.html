@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vone Forums</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>vone forums</h1>
+    <div id="forum-list"></div>
+  </div>
+
+  <script>
+    const md = window.markdownit();
+    const forumList = document.getElementById("forum-list");
+
+    async function loadMarkdownFiles() {
+      const files = await fetch("forums/index.json").then(res => res.json());
+      for (let file of files) {
+        try {
+          const res = await fetch(`forums/${file}`);
+          const text = await res.text();
+          const html = md.render(text);
+          const title = file.replace(".md", "");
+          const section = document.createElement("div");
+          section.className = "forum-post";
+          section.innerHTML = `
+            <h3>${title}</h3>
+            <div class="forum-content">${html}</div>
+          `;
+          forumList.appendChild(section);
+        } catch (e) {
+          console.error(`Error loading ${file}`, e);
+        }
+      }
+    }
+
+    loadMarkdownFiles();
+  </script>
+</body>
+</html>
