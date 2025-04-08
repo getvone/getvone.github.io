@@ -76,31 +76,6 @@
     .mockup:hover {
       transform: scale(1.05) rotate(3deg);
     }
-    .language-selector {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-    .language-selector img {
-      width: 32px;
-      cursor: pointer;
-    }
-    .language-dropdown {
-      display: none;
-      position: absolute;
-      right: 0;
-      background: #2a2a2d;
-      border-radius: 8px;
-      overflow: hidden;
-      z-index: 10;
-    }
-    .language-dropdown select {
-      padding: 10px;
-      border: none;
-      background: #2a2a2d;
-      color: white;
-      font-family: 'Poppins';
-    }
     .features {
       display: flex;
       justify-content: space-around;
@@ -186,18 +161,6 @@
   </style>
 </head>
 <body>
-  <div class="language-selector">
-    <img src="language.png" alt="Language" onclick="toggleLanguageDropdown()">
-    <div class="language-dropdown" id="lang-dropdown">
-      <select onchange="translatePage(this.value)">
-        <option value="en">English (US)</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-        <option value="de">German</option>
-        <option value="it">Italian</option>
-        <option value="ja">Japanese</option>
-        <option value="zh-CN">Chinese (Simplified)</option>
-      </select>
     </div>
   </div>
   <div class="container">
@@ -217,13 +180,13 @@
           <img src="forums.png" alt="Forum Icon">
           announcements
         </a>
+        <a href="https://github.com/getvone/getvone.github.io/discussions/categories/general" class="contact-btn">
+          <img src="forums.png" alt="Community Icon">
+          community
         <a href="reconos.html" class="contact-btn">
           <img src="reconos.png" alt="ReconOS Icon">
           reconos
         </a>
-        <a href="https://github.com/getvone/getvone.github.io/discussions/categories/general" class="contact-btn">
-          <img src="community.png" alt="Community Icon">
-          community
         </a>
         <div class="version-text">v4.3.1 stable &bull; Windows 11, 10, 8.1, 8, and 7</div>
       </div>
@@ -247,20 +210,5 @@
       Made by <a href="https://rxllie.github.io" class="made-by">rxllie</a>
     </footer>
   </div>
-  <script>
-    function toggleLanguageDropdown() {
-      const dropdown = document.getElementById('lang-dropdown');
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function translatePage(lang) {
-      const gtScript = document.createElement('script');
-      gtScript.src = `https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
-      document.body.appendChild(gtScript);
-      window.googleTranslateElementInit = () => {
-        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: lang, layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-      };
-    }
-  </script>
 </body>
 </html>
