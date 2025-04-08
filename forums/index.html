@@ -3,41 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vone Forums</title>
+  <title>Vone Forum</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 class="forum-title">vone forum</h1>
-    <div id="forum-list" class="forum-list"></div>
-    <div id="forum-content" class="forum-content"></div>
+    <h1 class="forum-title">Vone Forum</h1>
+    <ul id="forum-list">
+      <li><a href="001.html">Welcome to Vone Forums!</a></li>
+    </ul>
   </div>
-
-  <script>
-    const md = window.markdownit();
-    const listContainer = document.getElementById('forum-list');
-    const contentContainer = document.getElementById('forum-content');
-
-    fetch('index.json')
-      .then(res => res.json())
-      .then(files => {
-        files.forEach(file => {
-          const title = file.replace(/\.md$/, '');
-          const item = document.createElement('div');
-          item.className = 'forum-item';
-          item.textContent = title;
-          item.onclick = () => {
-            fetch(file)
-              .then(res => res.text())
-              .then(markdown => {
-                contentContainer.innerHTML = md.render(markdown);
-              });
-          };
-          listContainer.appendChild(item);
-        });
-      });
-  </script>
 </body>
 </html>
