@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vone Forums</title>
-  <link rel="icon" href="icon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vone - Announcements</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="html.js"></script>
+    <link href="https://fonts.cdnfonts.com/css/planet-kosmos" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/cloister-black" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -15,30 +19,35 @@
 
         body {
             background-color: #1c1c1e;
-            font-family: 'Poppins', sans-serif;
             color: #fff;
-            padding: 40px;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         h1 {
-            text-align: center;
-            font-size: 3rem;
+            font-family: 'Planet Kosmos', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, #87CEFA, #00FFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-align: center;
         }
 
-        .forum-search {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            display: flex;
-            gap: 10px;
+        .search-box {
+            display: none;
+            margin: 0 auto 20px;
+            width: 100%;
+            max-width: 400px;
         }
 
-        .forum-search input {
-            flex: 1;
-            padding: 12px;
+        .search-box input {
+            width: 100%;
+            padding: 10px;
             border-radius: 8px;
             border: none;
             background-color: #2a2a2d;
@@ -46,58 +55,112 @@
             font-size: 1rem;
         }
 
-        .forum-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .forum-post {
+        .forum-item {
             background-color: #2a2a2d;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        .forum-post:hover {
-            transform: scale(1.01);
-        }
-
-        .forum-title {
-            font-size: 1.5rem;
-            color: #87CEFA;
-            margin-bottom: 10px;
-        }
-
-        .forum-content {
-            color: #ccc;
-            font-size: 1rem;
             margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 255, 0.3);
+            transition: transform 0.3s ease;
         }
 
-        .forum-meta {
-            font-size: 0.85rem;
-            color: #999;
+        .forum-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 255, 0.5);
         }
+
+        .forum-item h3 {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .forum-item a {
+            text-decoration: none;
+            color: #87CEFA;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .forum-item a:hover {
+            color: #00FFFF;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Vone Forums</h1>
-    <div class="forum-search">
-        <input type="text" placeholder="Search forums...">
-    </div>
-    <div class="forum-list">
-        <div class="forum-post">
-            <div class="forum-title">Welcome to the New Forums</div>
-            <div class="forum-content">We’ve officially launched the Vone community forums. Share feedback and connect!</div>
-            <div class="forum-meta">Created by: rxllie</div>
+
+    <div class="container">
+        <h1>Vone Announcements</h1>
+        <div class="search-box" id="searchBox">
+            <input type="text" id="searchInput" placeholder="Search announcements...">
         </div>
-        <div class="forum-post">
-            <div class="forum-title">Update 4.3.1 Released</div>
-            <div class="forum-content">This update includes performance improvements and bug fixes for Windows 11 and below.</div>
-            <div class="forum-meta">Created by: rxllie</div>
-        </div>
+        <div id="forum-container"></div>
     </div>
+
+    <script>
+        const forumContainer = document.getElementById('forum-container')
+        const searchBox = document.getElementById('searchBox')
+        const searchInput = document.getElementById('searchInput')
+        const apiUrl = 'https://api.github.com/repos/getvone/getvone.github.io/discussions'
+        let announcementsData = []
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                announcementsData = data.filter(d => d.category && d.category.slug === 'announcements')
+                renderAnnouncements(announcementsData)
+            })
+            .catch(error => console.error('Error fetching discussions:', error))
+
+        function renderAnnouncements(data) {
+            forumContainer.innerHTML = ''
+            if (data.length === 0) {
+                const msg = document.createElement('p')
+                msg.textContent = 'No announcements found at the moment.'
+                forumContainer.appendChild(msg)
+                return
+            }
+            data.forEach(discussion => {
+                const forumItem = document.createElement('div')
+                forumItem.classList.add('forum-item')
+                const title = document.createElement('h3')
+                title.textContent = discussion.title
+                const link = document.createElement('a')
+                link.href = discussion.html_url
+                link.textContent = 'View Announcements'
+                link.target = '_blank'
+                forumItem.appendChild(title)
+                forumItem.appendChild(link)
+                forumContainer.appendChild(forumItem)
+            })
+        }
+
+        searchInput.addEventListener('input', () => {
+            const keyword = searchInput.value.toLowerCase()
+            const filtered = announcementsData.filter(a => a.title.toLowerCase().includes(keyword))
+            renderAnnouncements(filtered)
+        })
+
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+                e.preventDefault()
+                searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block'
+                if (searchBox.style.display === 'block') {
+                    searchInput.focus()
+                }
+            }
+        })
+    </script>
+
+    <script>
+        if (location.pathname.endsWith('.html')) {
+            const cleanPath = location.pathname.replace(/\.html$/, '')
+            history.replaceState(null, '', cleanPath)
+        }
+    </script>
+
 </body>
 </html>
