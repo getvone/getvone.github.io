@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vone - Announcements</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/planet-kosmos" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/cloister-black" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c1c1e;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Planet Kosmos', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .forum-item {
+            background-color: #2a2a2d;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .forum-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 0, 255, 0.5);
+        }
+
+        .forum-item h3 {
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .forum-item a {
+            text-decoration: none;
+            color: #87CEFA;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .forum-item a:hover {
+            color: #00FFFF;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Vone Announcements</h1>
+        <div id="forum-container"></div>
+    </div>
+
+    <script>
+        const apiUrl = 'https://api.github.com/repos/getvone/getvone.github.io/discussions';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Filter discussions by category 'Announcements'
+                const announcements = data.filter(discussion => discussion.category && discussion.category.slug === 'announcements');
+                
+                const forumContainer = document.getElementById('forum-container');
+                
+                // Check if there are no announcements
+                if (announcements.length === 0) {
+                    const noAnnouncementsMessage = document.createElement('p');
+                    noAnnouncementsMessage.textContent = 'No announcements found at the moment.';
+                    forumContainer.appendChild(noAnnouncementsMessage);
+                }
+
+                // Display each announcement
+                announcements.forEach(discussion => {
+                    const forumItem = document.createElement('div');
+                    forumItem.classList.add('forum-item');
+                    
+                    const title = document.createElement('h3');
+                    title.textContent = discussion.title;
+                    
+                    const link = document.createElement('a');
+                    link.href = discussion.html_url;
+                    link.textContent = 'View Discussion';
+                    link.target = '_blank';
+                    
+                    forumItem.appendChild(title);
+                    forumItem.appendChild(link);
+                    forumContainer.appendChild(forumItem);
+                });
+            })
+            .catch(error => console.error('Error fetching discussions:', error));
+    </script>
+
+</body>
+</html>
