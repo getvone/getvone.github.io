@@ -1,5 +1,7 @@
 # Welcome to Vone's forum page!
 
-Here you will find updates about Vone, ReconOS and much more.
+__**Here you will find updates about Vone, ReconOS and much more.**__
 
-Need help? (Contact me!)[https://rxllie.github.io]
+### Need help? [Contact me!](https://rxllie.github.io)
+
+-- rxllie, Owner & Founder @ Vone
