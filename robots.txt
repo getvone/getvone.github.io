@@ -1,4 +1,4 @@
 # robots.txt
 
 User-agent: *
-Disallow: /support
+Disallow: /reconos/dev-release
